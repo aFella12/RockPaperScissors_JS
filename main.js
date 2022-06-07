@@ -29,7 +29,6 @@ function playRound(playerSelection, computerSelection) {
     playerSelectionLower = playerSelection.toLowerCase();
     if (playerSelectionLower === computerSelection) {
         result = 'Tie';
-        console.log(result);
     } else if (playerSelectionLower === 'rock') {
         if (computerSelection === 'scissors') {
             result = 'Player Win';
@@ -60,10 +59,8 @@ function game() {
         computerMove = computerPlay();
         if (playRound(playerMove, computerMove) == 'Player Win') {
             playerScore = ++playerScore;
-            console.log('player win');
         } else if (playRound(playerMove, computerMove) == 'Computer Win') {
             computerScore = ++computerScore;
-            console.log('computer win');
         }
     }
     console.log(playerScore);
@@ -71,8 +68,8 @@ function game() {
     if (playerScore == computerScore) {
         alert(`A tie with both competitors possesing ${playerScore} points.`);
     } else if (playerScore > computerScore) {
-        alert(`Congrats!!! You bested the computer by a score of ${playerScore} to ${ComputerScore}`)
-    } else if (ComputerScore > playerScore) {
+        alert(`Congrats!!! You bested the computer by a score of ${playerScore} to ${computerScore}`)
+    } else if (computerScore > playerScore) {
         alert(`You somehow lost to a computer spitting out random generators by a score of ${computerScore} to ${playerScore}`)
     } else {
         alert('you broke my code, leave');
