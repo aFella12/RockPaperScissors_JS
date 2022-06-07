@@ -26,32 +26,54 @@ function computerPlay() {
 
 //Algorithm for determing winner was inspired by https://realpython.com/python-rock-paper-scissors/
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
-    if (playerSelection === computerSelection) {
-        result = `Tie, both players chose ${playerSelection}`;
-    } else if (playerSelection === 'rock') {
+    playerSelectionLower = playerSelection.toLowerCase();
+    if (playerSelectionLower === computerSelection) {
+        result = 'Tie';
+    } else if (playerSelectionLower === 'rock') {
         if (computerSelection === 'scissors') {
-            result = `${playerSelection} beats ${computerSelection}, You Win!!!`;
+            result = 'Player Win';
         } else {
-            result = `${computerSelection} beats ${playerSelection}, You Lose!!!`;
+            result = 'Computer Win';
         }
-    } else if (playerSelection === 'paper') {
+    } else if (playerSelectionLower === 'paper') {
         if (computerSelection === 'rock') {
-            result = `${playerSelection} beats ${computerSelection}, You Win!!!`;
+            result = 'Player Win';
         } else {
-            result = `${computerSelection} beats ${playerSelection}, You Lose!!!`;
+            result = 'Computer Win';
         }
-    } else if (playerSelection === 'scissors') {
+    } else if (playerSelectionLower === 'scissors') {
         if (computerSelection === 'paper') {
-            result = `${playerSelection} beats ${computerSelection}, You Win!!!`;
+            result = 'Player Win';
         } else {
-            result = `${computerSelection} beats ${playerSelection}, You Lose!!!`;
+            result = 'Computer Win';
         }
     }
     return result;
 }
 
 function game() {
-    
+    playerScore = 0;
+    computerScore = 0;
+    for (let i = 0; i < 5; i++) {
+        playerMove = prompt("Choose Rock, Paper or Scissors.");
+        computerMove = computerPlay();
+        if (playRound == 'Player Win') {
+            playerScore = playerScore++;
+        } else if (playRound == 'Computer Win') {
+            computerScore = computerScore++;
+        }
+    }
+    if (playerScore == computerScore) {
+        alert(`A tie with both competitors possesing ${playerScore}, points.`);
+    } else if (playerScore > computerScore) {
+        alert(`Congrats!!! You bested the computer by a score of ${playerScore} to ${ComputerScore}`)
+    } else if (ComputerScore > playerScore) {
+        alert(`You somehow lost to a computer spitting out random generators by a score of ${computerScore} to ${playerScore}`)
+    } else {
+        alert('you broke my code, leave');
+    }
+
 }
+
+game();
 
