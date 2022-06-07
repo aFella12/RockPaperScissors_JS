@@ -1,4 +1,4 @@
-//the functio getRandomIntInclusive was taken from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+//the function getRandomIntInclusive was taken from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -24,5 +24,34 @@ function computerPlay() {
     return computerSelection;
 }
 
-console.log(computerPlay());
+//Algorithm for determing winner was inspired by https://realpython.com/python-rock-paper-scissors/
+function playRound(playerSelection, computerSelection) {
+    playerSelection = playerSelection.toLowerCase();
+    if (playerSelection === computerSelection) {
+        result = `Tie, both players chose ${playerSelection}`;
+    } else if (playerSelection === 'rock') {
+        if (computerSelection === 'scissors') {
+            result = `${playerSelection} beats ${computerSelection}, You Win!!!`;
+        } else {
+            result = `${computerSelection} beats ${playerSelection}, You Lose!!!`;
+        }
+    } else if (playerSelection === 'paper') {
+        if (computerSelection === 'rock') {
+            result = `${playerSelection} beats ${computerSelection}, You Win!!!`;
+        } else {
+            result = `${computerSelection} beats ${playerSelection}, You Lose!!!`;
+        }
+    } else if (playerSelection === 'scissors') {
+        if (computerSelection === 'paper') {
+            result = `${playerSelection} beats ${computerSelection}, You Win!!!`;
+        } else {
+            result = `${computerSelection} beats ${playerSelection}, You Lose!!!`;
+        }
+    }
+    return result;
+}
+
+function game() {
+    
+}
 
