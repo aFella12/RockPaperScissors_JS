@@ -18,7 +18,6 @@ function computerPlay() {
             computerSelection = 'scissors';
             break;
         default:
-            console.log('Somehow this code broke, idk man');
             break;
     }
     return computerSelection;
@@ -75,6 +74,4 @@ function game() {
         alert('you broke my code, leave');
     }
 }
-
-game();
 
