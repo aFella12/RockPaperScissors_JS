@@ -1,0 +1,49 @@
+body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 50px;
+}
+
+.instructions {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 20px; 
+}
+
+.scoreDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rock {
+    flex-grow: 1;
+    width: 100px;
+}
+
+.paper {
+    flex-grow: 1;
+    width: 100px;
+}
+
+.scissors {
+    flex-grow: 1;
+    width: 100px;
+}
+
+.scoreDiv {
+    width: auto;
+}

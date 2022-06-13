@@ -1,10 +1,19 @@
+const rockBtn = document.querySelector('.rock');
+const paperBtn = document.querySelector('.paper');
+const scissorsBtn = document.querySelector('.scissors');
+const scoreDisplay = document.querySelector('.score');
+const winnerDisplay = document.querySelector('.winner');
+
+let playerScore = 0;
+let computerScore = 0;
+
 //the function getRandomIntInclusive was taken from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
-  }
-  
+}
+
 function computerPlay() {
     computerMoveInt = getRandomIntInclusive(1, 3);
     switch(computerMoveInt) {
@@ -18,63 +27,80 @@ function computerPlay() {
             computerSelection = 'scissors';
             break;
         default:
-            console.log('Somehow this code broke, idk man');
             break;
     }
     return computerSelection;
 }
 
+function checkWinner() {
+    if(playerScore >= 5 || computerScore >= 5) {
+        if(playerScore >= 5) {
+            winner = 'player';
+        } else {
+            winner = 'computer';
+        }
+        rockBtn.removeEventListener('click', playRoundRock);
+        paperBtn.removeEventListener('click', playRoundPaper);
+        scissorsBtn.removeEventListener('click', playRoundScissors);
+        console.log('removed listeners, hopefully');
+        return true;
+    } else {
+        winner = 'none';
+        return false;
+    }
+}
+
 //Algorithm for determing winner was inspired by https://realpython.com/python-rock-paper-scissors/
 function playRound(playerSelection, computerSelection) {
-    playerSelectionLower = playerSelection.toLowerCase();
-    if (playerSelectionLower === computerSelection) {
-        result = 'Tie';
-    } else if (playerSelectionLower === 'rock') {
+    if (playerSelection === computerSelection) {
+        scoreDisplay.textContent = 'Tie';
+    } else if (playerSelection === 'rock') {
         if (computerSelection === 'scissors') {
-            result = 'Player Win';
+            playerScore++;
+            scoreDisplay.textContent = 'Player Win';
         } else {
-            result = 'Computer Win';
+            computerScore++;
+            scoreDisplay.textContent = 'Computer Won';
         }
-    } else if (playerSelectionLower === 'paper') {
+    } else if (playerSelection === 'paper') {
         if (computerSelection === 'rock') {
-            result = 'Player Win';
+            playerScore++;
+            scoreDisplay.textContent = 'Player Won';
         } else {
-            result = 'Computer Win';
+            computerScore++;
+            scoreDisplay.textContent = 'Computer Won';
         }
-    } else if (playerSelectionLower === 'scissors') {
+    } else if (playerSelection === 'scissors') {
         if (computerSelection === 'paper') {
-            result = 'Player Win';
+            playerScore++;
+            scoreDisplay.textContent = 'Player Won';
         } else {
-            result = 'Computer Win';
+            computerScore++
+            scoreDisplay.textContent = 'Computer Won';
         }
     }
-    return result;
+    checkWinner();
+    winnerDisplay.textContent = winner;
+    return true;
+}
+
+function playRoundRock() {
+    playRound('rock', computerPlay())
+}
+
+function playRoundPaper() {
+    playRound('paper', computerPlay())
+}
+
+function playRoundScissors() {
+    playRound('scissors', computerPlay())
 }
 
 function game() {
-    playerScore = 0;
-    computerScore = 0;
-    for (let i = 0; i < 5; i++) {
-        playerMove = prompt("Choose Rock, Paper or Scissors.");
-        computerMove = computerPlay();
-        if (playRound(playerMove, computerMove) == 'Player Win') {
-            playerScore = ++playerScore;
-        } else if (playRound(playerMove, computerMove) == 'Computer Win') {
-            computerScore = ++computerScore;
-        }
-    }
-    console.log(playerScore);
-    console.log(computerScore);
-    if (playerScore == computerScore) {
-        alert(`A tie with both competitors possesing ${playerScore} points.`);
-    } else if (playerScore > computerScore) {
-        alert(`Congrats!!! You bested the computer by a score of ${playerScore} to ${computerScore}`)
-    } else if (computerScore > playerScore) {
-        alert(`You somehow lost to a computer spitting out random generators by a score of ${computerScore} to ${playerScore}`)
-    } else {
-        alert('you broke my code, leave');
-    }
+    rockBtn.addEventListener('click', playRoundRock);
+    paperBtn.addEventListener('click', playRoundPaper);
+    scissorsBtn.addEventListener('click', playRoundScissors);
+    return true;
 }
 
 game();
-
