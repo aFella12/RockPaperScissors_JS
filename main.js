@@ -2,6 +2,10 @@ const rockBtn = document.querySelector('.rock');
 const paperBtn = document.querySelector('.paper');
 const scissorsBtn = document.querySelector('.scissors');
 const scoreDisplay = document.querySelector('.score');
+const winnerDisplay = document.querySelector('.winner');
+
+let playerScore = 0;
+let computerScore = 0;
 
 //the function getRandomIntInclusive was taken from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRandomIntInclusive(min, max) {
@@ -28,44 +32,75 @@ function computerPlay() {
     return computerSelection;
 }
 
+function checkWinner() {
+    if(playerScore >= 5 || computerScore >= 5) {
+        if(playerScore >= 5) {
+            winner = 'player';
+        } else {
+            winner = 'computer';
+        }
+        rockBtn.removeEventListener('click', playRoundRock);
+        paperBtn.removeEventListener('click', playRoundPaper);
+        scissorsBtn.removeEventListener('click', playRoundScissors);
+        console.log('removed listeners, hopefully');
+        return true;
+    } else {
+        winner = 'none';
+        return false;
+    }
+}
+
 //Algorithm for determing winner was inspired by https://realpython.com/python-rock-paper-scissors/
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
-        result = 'Tie';
-        scoreDisplay.textContent = result;
+        scoreDisplay.textContent = 'Tie';
     } else if (playerSelection === 'rock') {
         if (computerSelection === 'scissors') {
-            result = 'Player Win';
-            scoreDisplay.textContent = result;
+            playerScore++;
+            scoreDisplay.textContent = 'Player Win';
         } else {
-            result = 'Computer Win';
-            scoreDisplay.textContent = result;
+            computerScore++;
+            scoreDisplay.textContent = 'Computer Won';
         }
     } else if (playerSelection === 'paper') {
         if (computerSelection === 'rock') {
-            result = 'Player Win';
-            scoreDisplay.textContent = result;
+            playerScore++;
+            scoreDisplay.textContent = 'Player Won';
         } else {
-            result = 'Computer Win';
-            scoreDisplay.textContent = result;
+            computerScore++;
+            scoreDisplay.textContent = 'Computer Won';
         }
     } else if (playerSelection === 'scissors') {
         if (computerSelection === 'paper') {
-            result = 'Player Win';
-            scoreDisplay.textContent = result;
+            playerScore++;
+            scoreDisplay.textContent = 'Player Won';
         } else {
-            result = 'Computer Win';
-            scoreDisplay.textContent = result;
+            computerScore++
+            scoreDisplay.textContent = 'Computer Won';
         }
     }
-    return result;
+    checkWinner();
+    winnerDisplay.textContent = winner;
+    return true;
+}
+
+function playRoundRock() {
+    playRound('rock', computerPlay())
+}
+
+function playRoundPaper() {
+    playRound('paper', computerPlay())
+}
+
+function playRoundScissors() {
+    playRound('scissors', computerPlay())
 }
 
 function game() {
-    computerMove = computerPlay();
-    rockBtn.addEventListener('click', function() {playRound('rock', computerMove)});
-    paperBtn.addEventListener('click', function() {playRound('paper', computerMove)});
-    scissorsBtn.addEventListener('click', function() {playRound('scissors', computerMove)});
+    rockBtn.addEventListener('click', playRoundRock);
+    paperBtn.addEventListener('click', playRoundPaper);
+    scissorsBtn.addEventListener('click', playRoundScissors);
+    return true;
 }
 
 game();

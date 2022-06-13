@@ -23,6 +23,12 @@ body {
     column-gap: 20px; 
 }
 
+.scoreDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .rock {
     flex-grow: 1;
     width: 100px;
